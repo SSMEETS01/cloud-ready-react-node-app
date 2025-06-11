@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+
+  backend:
+    image: your-backend-image:latest
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend.rule=Host(`api.jouwdomein.nl`)"
+      - "traefik.http.routers.backend.entrypoints=websecure"
+      - "traefik.http.routers.backend.tls=true"
+      - "traefik.http.routers.backend.tls.certresolver=cloudflare"
+      - "traefik.http.services.backend.loadbalancer.server.port=8080"
+    expose:
+      - "8080"
+    restart: always
